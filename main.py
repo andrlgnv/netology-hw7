@@ -38,18 +38,16 @@ print(test_shop_list)
 # Задача 3
 def sum_file(*files):
     text = {}
-    for file in files:
-        summary = []
-        with open(file, 'rt', encoding='utf-8') as f:
+    for one_file in files:
+        with open(one_file, 'rt', encoding='utf-8') as f:
             text_in_file = f.readlines()
-            length = len(text_in_file)
-            summary.append([length])
-            text.update({file: summary})
-    sorted_files = sorted(text.items(), key=lambda x: x[1])
+            text[one_file] = len(text_in_file)
+    sorted_files = sorted(text.items())
+
     with open('sum_file.txt', 'w', encoding='utf-8') as final_file:
         for item in sorted_files:
             final_file.writelines(f'{item[0]}\n')
-            final_file.writelines(f'{item[1][0][0]}\n')
+            final_file.writelines(f'{item[1]}\n')
             with open(item[0], 'rt', encoding='utf-8') as f:
                 final_file.writelines(f)
                 final_file.writelines('\n')
