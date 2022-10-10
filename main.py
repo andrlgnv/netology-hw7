@@ -36,77 +36,23 @@ print(test_shop_list)
 
 
 # Задача 3
-path_1 = '1.txt'
-path_2 = '2.txt'
-path_3 = '3.txt'
-with open(path_1, encoding='utf-8') as f_1:
-    file_1 = f_1.readlines()
-with open(path_2, encoding='utf-8') as f_2:
-    file_2 = f_2.readlines()
-with open(path_3, encoding='utf-8') as f_3:
-    file_3 = f_3.readlines()
+def sum_file(*files):
+    text = {}
+    for file in files:
+        summary = []
+        with open(file, 'rt', encoding='utf-8') as f:
+            text_in_file = f.readlines()
+            length = len(text_in_file)
+            summary.append([length])
+            text.update({file: summary})
+    sorted_files = sorted(text.items(), key=lambda x: x[1])
+    with open('sum_file.txt', 'w', encoding='utf-8') as final_file:
+        for item in sorted_files:
+            final_file.writelines(f'{item[0]}\n')
+            final_file.writelines(f'{item[1][0][0]}\n')
+            with open(item[0], 'rt', encoding='utf-8') as f:
+                final_file.writelines(f)
+                final_file.writelines('\n')
 
-with open('final_file.txt', 'w', encoding='utf-8') as file:
-    if len(file_1) < len(file_2) and len(file_1) < len(file_3):
-        file.write(path_1 + '\n')
-        file.write(str(len(file_1)) + '\n')
-        file.write(str(file_1))
-        file.write('\n')
-        if len(file_2)<len(file_3):
-            file.write(path_2 + '\n')
-            file.write(str(len(file_2)) + '\n')
-            file.write(str(file_2))
-            file.write('\n')
-            file.write(path_3 + '\n')
-            file.write(str(len(file_3)) + '\n')
-            file.write(str(file_3))
-        else:
-            file.write(path_3 + '\n')
-            file.write(str(len(file_3)) + '\n')
-            file.write(str(file_3))
-            file.write('\n')
-            file.write(path_2 + '\n')
-            file.write(str(len(file_2)) + '\n')
-            file.write(str(file_2))
-    elif len(file_2) < len(file_1) and len(file_2) < len(file_3):
-        file.write(path_2 + '\n')
-        file.write(str(len(file_2)) + '\n')
-        file.write(str(file_2))
-        file.write('\n')
-        if len(file_1) < len(file_3):
-            file.write(path_1 + '\n')
-            file.write(str(len(file_1)) + '\n')
-            file.write(str(file_1))
-            file.write('\n')
-            file.write(path_3 + '\n')
-            file.write(str(len(file_3)) + '\n')
-            file.write(str(file_3))
-        else:
-            file.write(path_3 + '\n')
-            file.write(str(len(file_3)) + '\n')
-            file.write(str(file_3))
-            file.write('\n')
-            file.write(path_1 + '\n')
-            file.write(str(len(file_1)) + '\n')
-            file.write(str(file_1))
-    else:
-        file.write(path_3 + '\n')
-        file.write(str(len(file_3)) + '\n')
-        file.write(str(file_3))
-        file.write('\n')
-        if len(file_1) < len(file_2):
-            file.write(path_1 + '\n')
-            file.write(str(len(file_1)) + '\n')
-            file.write(str(file_1))
-            file.write('\n')
-            file.write(path_2 + '\n')
-            file.write(str(len(file_2)) + '\n')
-            file.write(str(file_2))
-        else:
-            file.write(path_2 + '\n')
-            file.write(str(len(file_2)) + '\n')
-            file.write(str(file_2))
-            file.write('\n')
-            file.write(path_1 + '\n')
-            file.write(str(len(file_1)) + '\n')
-            file.write(str(file_1))
+#Проверка для задачи 3
+sum_file('1.txt', '2.txt', '3.txt')
